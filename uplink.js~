@@ -15,7 +15,7 @@ var dataUpload=function(){
   var users=firebase.database().ref('users');
   ret.updateVote=function(candidate, user){
   candidates.child(candidate).child("votes").transaction(function(votes){
-	 return parseInt(votes)||0)+1;
+	 return (parseInt(votes)||0)+1;
 	  });
   users.child(user).child("voted").transaction(function(voted){
 	  return true;
