@@ -1,0 +1,21 @@
+{
+  "name": "evm",
+  "version": "1.0.0",
+  "description": "electronic voting machine that can authenticate users and save a users vote while also sending a text message to user saying that he cast a vote.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "electronic",
+    "voting",
+    "machine"
+  ],
+  "author": "aravind karnam rajendraprasad, vishnu prasanth sree rangarajan",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^3.4.1",
+    "mraa": "^1.3.0",
+    "promise": "^7.1.1"
+  }
+}

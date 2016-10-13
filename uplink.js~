@@ -1,0 +1,39 @@
+var promise = require("promise");
+var dataUpload=function(){
+  var ret={};
+
+  var firebase=require('firebase');
+  var config = {
+    apiKey: "AIzaSyAoNEwQvswWHIzTc0KYr5DiP0EUfeewjd4",
+    authDomain: "iot-steppermotorcontrol.firebaseapp.com",
+    databaseURL: "https://iot-steppermotorcontrol.firebaseio.com",
+    storageBucket: "iot-steppermotorcontrol.appspot.com",
+    messagingSenderId: "470513976629"
+  };
+  firebase.initializeApp(config);
+  var candidates=firebase.database().ref('candidates');  
+  var users=firebase.database().ref('users');
+  ret.updateVote=function(candidate, user){
+  candidates.child(candidate).child("votes").transaction(function(votes){
+	 return parseInt(votes)||0)+1;
+	  });
+  users.child(user).child("voted").transaction(function(voted){
+	  return true;
+	  });
+  };
+  ret.checkUser=function(ssn){
+	  console.log("checking for user "+ ssn);
+	var p = new promise(function(resolve, reject){
+  	users.child(ssn).once('value').then(function(snapshot){
+	console.log(snapshot.val());
+	resolve(snapshot.val().voted);
+	},function(){
+		resolve(false);
+	});
+	});
+	return p;
+  };
+
+ return ret;
+};
+module.exports=dataUpload();
