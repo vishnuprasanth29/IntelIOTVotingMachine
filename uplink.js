@@ -1,4 +1,5 @@
 var promise = require("promise");
+var mailer=require('./mailer');
 var dataUpload=function(){
   var ret={};
 
@@ -14,6 +15,7 @@ var dataUpload=function(){
   var candidates=firebase.database().ref('candidates');  
   var users=firebase.database().ref('users');
   ret.updateVote=function(candidate, user){
+	  mailer.sendEmail();
   candidates.child(candidate).child("votes").transaction(function(votes){
 	 return (parseInt(votes)||0)+1;
 	  });
